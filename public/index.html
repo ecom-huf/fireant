@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Tài Chính - Ag-Grid Tree Data</title>
+    
+    <!-- Ag-Grid Scripts & Styles (Sử dụng phiên bản CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-enterprise@31.0.1/dist/ag-grid-enterprise.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.1/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.1/styles/ag-theme-alpine.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        select, input, button {
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #0b5ed7;
+        }
+        #myGrid {
+            height: 700px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>📊 Báo Cáo Tài Chính (TreeGrid View)</h2>
+
+    <!-- Bộ lọc tìm kiếm -->
+    <div class="controls">
+        <label><b>Mã Cổ Phiếu:</b></label>
+        <input type="text" id="symbolInput" value="VNM" style="text-transform: uppercase; width: 80px;">
+
+        <label><b>Loại Báo Cáo:</b></label>
+        <select id="reportTypeSelect">
+            <option value="1">1. Bảng Cân Đối Kế Toán</option>
+            <option value="2">2. Kết Quả Kinh Doanh</option>
+            <option value="3">3. LCTT (Trực Tiếp)</option>
+            <option value="4">4. LCTT (Gián Tiếp)</option>
+        </select>
+
+        <label><b>Kỳ:</b></label>
+        <select id="periodModeSelect">
+            <option value="Quarter">Theo Quý</option>
+            <option value="Year">Theo Năm</option>
+        </select>
+
+        <button onclick="loadFinancialData()">Tải Dữ Liệu</button>
+    </div>
+
+    <!-- Bảng Ag-Grid -->
+    <div id="myGrid" class="ag-theme-alpine"></div>
+
+    <script>
+        const API_BASE_URL = "http://localhost:8000/api/v1/financial-reports";
+        let gridApi = null;
+
+        // Cấu hình Ag-Grid
+        const gridOptions = {
+            columnDefs: [
+                { 
+                    headerName: "Chỉ Tiêu Tài Chính", 
+                    field: "name", 
+                    width: 400,
+                    cellRenderer: 'agGroupCellRenderer' // Renderer hỗ trợ mở rộng/thu gọn dạng cây
+                }
+            ],
+            defaultColDef: {
+                flex: 1,
+                resizable: true,
+                sortable: true
+            },
+            treeData: true, // Kích hoạt tính năng Tree Data
+            getDataPath: (data) => data.hierarchyPath, // Đường dẫn phân cấp
+            autoGroupColumnDef: {
+                headerName: "Chỉ Tiêu Tài Chính",
+                width: 400,
+                cellRendererParams: {
+                    suppressCount: true
+                }
+            },
+            groupDefaultExpanded: -1 // Mặc định mở rộng toàn bộ cây
+        };
+
+        // Khởi tạo Bảng Ag-Grid khi trang load xong
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridDiv = document.querySelector('#myGrid');
+            gridApi = agGrid.createGrid(gridDiv, gridOptions);
+            loadFinancialData();
+        });
+
+        // Hàm gọi API từ FastAPI và xử lý cấu trúc dữ liệu dạng cây
+        async function loadFinancialData() {
+            const symbol = document.getElementById('symbolInput').value.trim().toUpperCase();
+            const reportTypeId = document.getElementById('reportTypeSelect').value;
+            const periodMode = document.getElementById('periodModeSelect').value;
+
+            if (!symbol) {
+                alert("Vui lòng nhập mã cổ phiếu!");
+                return;
+            }
+
+            try {
+                const url = `${API_BASE_URL}?symbol=${symbol}&report_type_id=${reportTypeId}&period_mode=${periodMode}&use_source=parquet`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`Lỗi API Status: ${response.status}`);
+                }
+
+                const rawData = await response.json();
+                
+                if (!rawData || rawData.length === 0) {
+                    alert("Không có dữ liệu cho lựa chọn này!");
+                    gridApi.setGridOption('rowData', []);
+                    return;
+                }
+
+                // 1. Tạo Map dữ liệu theo ID để xây dựng đường dẫn cây (hierarchyPath)
+                const itemMap = new Map();
+                rawData.forEach(item => itemMap.set(item.id, item));
+
+                // 2. Tìm tất cả các cột kỳ báo cáo (VD: Q1/2026, Q2/2026...) từ dữ liệu
+                const dynamicColumnsSet = new Set();
+                rawData.forEach(item => {
+                    if (Array.isArray(item.values)) {
+                        item.values.forEach(v => {
+                            const colKey = periodMode === "Quarter" ? `Q${v.quarter} ${v.year}` : `${v.year}`;
+                            dynamicColumnsSet.add(colKey);
+                            // Gán giá trị tiền tệ trực tiếp vào thuộc tính của Object để Ag-Grid đọc
+                            item[colKey] = v.value;
+                        });
+                    }
+                });
+
+                // 3. Xây dựng hierarchyPath cho Ag-Grid Tree Data
+                rawData.forEach(item => {
+                    const path = [item.name];
+                    let parentId = item.parentID;
+
+                    // Duyệt ngược lên đỉnh cây để lấy danh sách tên cha -> con
+                    while (parentId && parentId !== -1 && itemMap.has(parentId)) {
+                        const parentNode = itemMap.get(parentId);
+                        path.unshift(parentNode.name);
+                        parentId = parentNode.parentID;
+                    }
+                    item.hierarchyPath = path;
+                });
+
+                // 4. Tạo động các cột số liệu thời gian cho Ag-Grid
+                const dynamicColumns = Array.from(dynamicColumnsSet).map(colKey => ({
+                    headerName: colKey,
+                    field: colKey,
+                    width: 150,
+                    type: 'numericColumn',
+                    valueFormatter: (params) => {
+                        if (params.value === undefined || params.value === null) return "-";
+                        return new Intl.NumberFormat('vi-VN').format(params.value); // Định dạng số 1,000,000 VND
+                    }
+                }));
+
+                // 5. Cập nhật lại Columns và RowData vào Bảng
+                gridApi.setGridOption('columnDefs', dynamicColumns);
+                gridApi.setGridOption('rowData', rawData);
+
+            } catch (error) {
+                console.error("Lỗi khi tải dữ liệu:", error);
+                alert("Không thể tải dữ liệu từ FastAPI Backend. Hãy chắc chắn server FastAPI đang chạy tại localhost:8000!");
+            }
+        }
+    </script>
+</body>
+</html>
