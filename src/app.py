@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 # --- 1. DỰ ĐOÁN VÀ LẤY DANH SÁCH MÃ TỪ THƯ MỤC PARQUET ---
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data", "price_parquet")
 
 @st.cache_data
@@ -22,16 +22,16 @@ def get_available_symbols():
         return []
     
     symbols = []
-    # Quét toàn bộ file trong thư mục thay vì dùng glob cố định đuôi .parquet
+    # Quét toàn bộ file trong thư mục data/price_parquet/
     for f in os.listdir(DATA_DIR):
         if f.lower().endswith(".parquet"):
-            # Lấy tên file loại bỏ phần mở rộng
             symbol_name = os.path.splitext(f)[0].upper()
             symbols.append(symbol_name)
             
     return sorted(list(set(symbols)))
 
 AVAILABLE_SYMBOLS = get_available_symbols()
+
 
 # --- 2. HÀM TÍNH RSI CHUẨN TRADINGVIEW ---
 def calculate_rsi(series: pd.Series, period: int = 14) -> pd.Series:
@@ -49,29 +49,12 @@ def load_parquet_data(symbol: str, len1: int, len2: int, rsi_period: int) -> pd.
     if not os.path.exists(DATA_DIR):
         return pd.DataFrame()
 
-    # Tạo danh sách các tên file có thể xảy ra (ưu tiên chữ IN HOA trước)
-    possible_files = [
-        f"{symbol.upper()}.parquet",
-        f"{symbol.upper()}.PARQUET",
-        f"{symbol.lower()}.parquet",
-        f"{symbol}.parquet"
-    ]
-    
     target_path = None
-    
-    # 1. Kiểm tra trực tiếp các tên file phổ biến
-    for filename in possible_files:
-        path = os.path.join(DATA_DIR, filename)
-        if os.path.exists(path):
-            target_path = path
+    # Tìm file không phân biệt chữ hoa/thường
+    for f in os.listdir(DATA_DIR):
+        if os.path.splitext(f)[0].upper() == symbol.upper() and f.lower().endswith(".parquet"):
+            target_path = os.path.join(DATA_DIR, f)
             break
-            
-    # 2. Nếu vẫn chưa thấy, quét toàn bộ thư mục để so sánh linh hoạt
-    if not target_path:
-        for f in os.listdir(DATA_DIR):
-            if os.path.splitext(f)[0].upper() == symbol.upper() and f.lower().endswith(".parquet"):
-                target_path = os.path.join(DATA_DIR, f)
-                break
 
     if not target_path:
         return pd.DataFrame()
@@ -79,10 +62,7 @@ def load_parquet_data(symbol: str, len1: int, len2: int, rsi_period: int) -> pd.
     try:
         df = pd.read_parquet(target_path)
         
-        # Chuẩn hóa tên cột thành chữ thường
         df.columns = [str(col).lower() for col in df.columns]
-        
-        # Đảm bảo cột ngày đúng định dạng
         date_col = next((c for c in ['date', 'time', 'tradingdate'] if c in df.columns), None)
         if not date_col:
             return pd.DataFrame()
@@ -91,17 +71,14 @@ def load_parquet_data(symbol: str, len1: int, len2: int, rsi_period: int) -> pd.
         df['date'] = pd.to_datetime(df['date'])
         df = df.sort_values('date').reset_index(drop=True)
         
-        # Đảm bảo kiểu dữ liệu số
         for col in ['open', 'high', 'low', 'close', 'volume']:
             if col in df.columns:
                 df[col] = df[col].astype(float)
                 
-        # Quy đổi giá về đơn vị VNĐ nếu dữ liệu gốc theo nghìn VNĐ
         if df['close'].max() < 1000:
             for col in ['open', 'high', 'low', 'close']:
                 df[col] = df[col] * 1000
 
-        # Tính toán MA và RSI
         df[f'MA_{len1}'] = df['close'].rolling(window=len1).mean()
         df[f'MA_{len2}'] = df['close'].rolling(window=len2).mean()
         df[f'RSI_{rsi_period}'] = calculate_rsi(df['close'], period=rsi_period)
