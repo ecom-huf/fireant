@@ -32,13 +32,9 @@ def load_watchlist(file_path=WATCHLIST_PATH) -> list:
 
 def is_trading_hours() -> bool:
     """
-    Kiểm tra thời gian hiện tại có nằm trong phiên giao dịch hay không.
-    - Khung giờ: 09:00 - 15:00
-    - Ngày: Thứ 2 đến Thứ 6 (weekday từ 0 đến 4)
+    Kiểm tra thời gian hiện tại có nằm trong phiên giao dịch hay không (09:00 - 15:00, T2-T6).
     """
     now = datetime.datetime.now()
-    
-    # 0 là Thứ 2, 4 là Thứ 6. 5 = Thứ 7, 6 = Chủ Nhật
     if now.weekday() >= 5:
         return False
         
@@ -91,9 +87,12 @@ async def fetch_symbol_data(client: httpx.AsyncClient, symbol: str, headers: dic
         print(f"⚠️ Lỗi {symbol}: {e}")
 
 
-async def polling_loop(symbols: list, headers: dict):
-    """Vòng lặp thu thập dữ liệu bất đồng bộ liên tục trong phiên giao dịch."""
-    print(f"🚀 Bắt đầu luồng thu thập dữ liệu bất đồng bộ ({len(symbols)} mã cổ phiếu)...")
+async def polling_loop(headers: dict):
+    """
+    Vòng lặp thu thập dữ liệu bất đồng bộ liên tục.
+    Tự động reload lại watchlist/Kakata.csv mỗi chu kỳ để cập nhật danh sách mã mới nhất.
+    """
+    print(f"🚀 Bắt đầu luồng thu thập dữ liệu bất đồng bộ...")
     async with httpx.AsyncClient(limits=httpx.Limits(max_connections=50)) as client:
         count = 0
         while True:
@@ -102,11 +101,17 @@ async def polling_loop(symbols: list, headers: dict):
                 now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 print(f"⏰ [{now_str}] Outside market hours (09:00 - 15:00, T2-T6). Tạm dừng polling, chờ 30s...")
                 
-                # Nếu ngoài phiên mà vẫn còn dữ liệu trong RAM chưa flush thì flush nốt xuống đĩa
                 if ram_buffer:
                     flush_ram_to_parquet()
                     
                 await asyncio.sleep(30)
+                continue
+
+            # ĐỌC LẠI WATCHLIST ĐỂ TỰ ĐỘNG ĐỒNG BỘ NẾU CÓ THAY ĐỔI FILE CSV
+            symbols = load_watchlist(WATCHLIST_PATH)
+            if not symbols:
+                print("⚠️ Watchlist trống hoặc không đọc được file. Đang chờ 10s...")
+                await asyncio.sleep(10)
                 continue
 
             start_time = datetime.datetime.now()
@@ -117,7 +122,7 @@ async def polling_loop(symbols: list, headers: dict):
             print(f"⚡ Hoàn tất chu kỳ Polling cho {len(symbols)} mã (Thời gian: {elapsed:.2f}s)")
             
             count += 1
-            # Thực hiện Flush dữ liệu ra Parquet theo chu kỳ mỗi 10 chu kỳ (~ 50s)
+            # Flush dữ liệu ra Parquet theo chu kỳ mỗi 10 chu kỳ (~ 50s)
             if count % 10 == 0:
                 flush_ram_to_parquet()
 
@@ -127,15 +132,16 @@ async def polling_loop(symbols: list, headers: dict):
 async def main():
     symbols = load_watchlist(WATCHLIST_PATH)
     if not symbols:
-        print("🛑 Không tải được danh sách mã. Hệ thống dừng hoạt động!")
+        print(f"🛑 Không tìm thấy danh sách mã tại {WATCHLIST_PATH}. Hệ thống dừng!")
         return
         
-    print(f"✅ Đã tải thành công {len(symbols)} mã từ watchlist ({WATCHLIST_PATH})")
+    print(f"✅ Đã kết nối Watchlist ({WATCHLIST_PATH}): Khởi tạo ban đầu với {len(symbols)} mã.")
     
     token = FIREANT_TOKEN if FIREANT_TOKEN.startswith("Bearer ") else f"Bearer {FIREANT_TOKEN}"
     headers = {"Authorization": token}
     
-    await polling_loop(symbols, headers)
+    # Bắt đầu vòng lặp polling
+    await polling_loop(headers)
 
 
 if __name__ == "__main__":
@@ -143,5 +149,4 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("\n🛑 Đang dừng hệ thống an toàn...")
-        # Ép chốt toàn bộ dữ liệu RAM xuống Parquet trước khi thoát
         flush_ram_to_parquet()

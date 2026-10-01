@@ -147,7 +147,7 @@ def update_symbol_5days(symbol: str, target_dates: list, output_dir: str):
 def main():
     parser = argparse.ArgumentParser(description="Cập nhật dữ liệu Parquet 5 ngày gần nhất")
     parser.add_argument("--csv", type=str, default="watchlist/kakata.csv", help="Đường dẫn file CSV watchlist")
-    parser.add_argument("--output_dir", type=str, default="C:/fireant_data/price_parquet", help="Thư mục lưu Parquet (nên dùng ổ C:)")
+    parser.add_argument("--output_dir", type=str, default="price_parquet/", help="Thư mục lưu Parquet (nên dùng ổ C:)")
     args = parser.parse_args()
 
     if not os.path.exists(args.csv):
