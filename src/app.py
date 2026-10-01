@@ -13,16 +13,23 @@ st.set_page_config(
 )
 
 # --- 1. DỰ ĐOÁN VÀ LẤY DANH SÁCH MÃ TỪ THƯ MỤC PARQUET ---
-DATA_DIR = os.path.join("data", "price_parquet")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data", "price_parquet")
 
 @st.cache_data
 def get_available_symbols():
     if not os.path.exists(DATA_DIR):
         return []
-    # Tìm tất cả file .parquet trong thư mục
-    files = glob.glob(os.path.join(DATA_DIR, "*.parquet"))
-    symbols = [os.path.basename(f).replace(".parquet", "").upper() for f in files]
-    return sorted(symbols)
+    
+    symbols = []
+    # Quét toàn bộ file trong thư mục thay vì dùng glob cố định đuôi .parquet
+    for f in os.listdir(DATA_DIR):
+        if f.lower().endswith(".parquet"):
+            # Lấy tên file loại bỏ phần mở rộng
+            symbol_name = os.path.splitext(f)[0].upper()
+            symbols.append(symbol_name)
+            
+    return sorted(list(set(symbols)))
 
 AVAILABLE_SYMBOLS = get_available_symbols()
 
@@ -39,15 +46,38 @@ def calculate_rsi(series: pd.Series, period: int = 14) -> pd.Series:
 # --- 3. HÀM ĐỌC DỮ LIỆU TỪ FILE PARQUET ---
 @st.cache_data
 def load_parquet_data(symbol: str, len1: int, len2: int, rsi_period: int) -> pd.DataFrame:
-    file_path = os.path.join(DATA_DIR, f"{symbol}.parquet")
-    if not os.path.exists(file_path):
-        # Thử tìm file chữ thường nếu file in hoa không thấy
-        file_path = os.path.join(DATA_DIR, f"{symbol.lower()}.parquet")
-        if not os.path.exists(file_path):
-            return pd.DataFrame()
+    if not os.path.exists(DATA_DIR):
+        return pd.DataFrame()
+
+    # Tạo danh sách các tên file có thể xảy ra (ưu tiên chữ IN HOA trước)
+    possible_files = [
+        f"{symbol.upper()}.parquet",
+        f"{symbol.upper()}.PARQUET",
+        f"{symbol.lower()}.parquet",
+        f"{symbol}.parquet"
+    ]
+    
+    target_path = None
+    
+    # 1. Kiểm tra trực tiếp các tên file phổ biến
+    for filename in possible_files:
+        path = os.path.join(DATA_DIR, filename)
+        if os.path.exists(path):
+            target_path = path
+            break
+            
+    # 2. Nếu vẫn chưa thấy, quét toàn bộ thư mục để so sánh linh hoạt
+    if not target_path:
+        for f in os.listdir(DATA_DIR):
+            if os.path.splitext(f)[0].upper() == symbol.upper() and f.lower().endswith(".parquet"):
+                target_path = os.path.join(DATA_DIR, f)
+                break
+
+    if not target_path:
+        return pd.DataFrame()
             
     try:
-        df = pd.read_parquet(file_path)
+        df = pd.read_parquet(target_path)
         
         # Chuẩn hóa tên cột thành chữ thường
         df.columns = [str(col).lower() for col in df.columns]
@@ -233,3 +263,43 @@ renderLightweightCharts(charts_to_render, key=f"tv_chart_{symbol}_{selected_tf}_
 # --- 8. BẢNG DỮ LIỆU CHI TIẾT ---
 with st.expander("📄 Dữ liệu chi tiết Parquet"):
     st.dataframe(df_chart.sort_values('date', ascending=False), use_container_width=True)
+
+# --- CODE DEBUG HIỂN THỊ HỆ THỐNG FILE TRÊN STREAMLIT CLOUD ---
+with st.expander("🔍 Debug: Kiểm tra file Parquet trên Server Streamlit Cloud", expanded=True):
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    DEBUG_DATA_DIR = os.path.join(BASE_DIR, "data", "price_parquet")
+    
+    st.write("📍 **Đường dẫn thư mục làm việc hiện tại (`cwd`):**", os.getcwd())
+    st.write("📍 **Đường dẫn `DATA_DIR` tuyệt đối:**", DEBUG_DATA_DIR)
+    
+    # 1. Kiểm tra sự tồn tại của thư mục data/price_parquet
+    if os.path.exists(DEBUG_DATA_DIR):
+        st.success("✅ Đã tìm thấy thư mục `data/price_parquet/`!")
+        
+        # 2. Đọc toàn bộ danh sách file trong thư mục
+        all_files = os.listdir(DEBUG_DATA_DIR)
+        parquet_files = [f for f in all_files if f.lower().endswith('.parquet')]
+        
+        st.write(f"📊 **Tổng số file Parquet tìm thấy:** {len(parquet_files)}")
+        
+        if parquet_files:
+            # Hiển thị 10 file đầu tiên để kiểm tra cách đặt tên
+            st.write("📄 **10 file đầu tiên tìm thấy:**", parquet_files[:10])
+            
+            # Kiểm tra cụ thể file AAA hoặc TCB
+            target_check = "AAA.parquet"
+            has_aaa = any(f.upper() == target_check.upper() for f in parquet_files)
+            if has_aaa:
+                st.success(f"✅ Tìm thấy file khớp với mã **AAA**!")
+            else:
+                st.warning(f"⚠️️ KHÔNG tìm thấy file nào khớp với mã **AAA** trong danh sách trên!")
+        else:
+            st.error("❌ Thư mục `data/price_parquet/` tồn tại nhưng BỊ RỖNG (không chứa file `.parquet` nào)!")
+    else:
+        st.error("❌ KHÔNG tìm thấy thư mục `data/price_parquet/` trên server!")
+        
+        # Kiểm tra xem thư mục root hoặc thư mục data có tồn tại không
+        if os.path.exists(os.path.join(BASE_DIR, "data")):
+            st.info("📁 Nội dung bên trong thư mục `data/` hiện tại: " + str(os.listdir(os.path.join(BASE_DIR, "data"))))
+        else:
+            st.info("📁 Nội dung thư mục gốc (`root`): " + str(os.listdir(BASE_DIR)))
