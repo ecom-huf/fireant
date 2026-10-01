@@ -29,7 +29,7 @@ python-dotenv>=1.0.0
 streamlit>=1.30.0
 streamlit-lightweight-charts>=0.1.0
 plotly>=5.18.0
-streamlit-theme>=0.0.1
+
 
 # --- PHÂN TÍCH, VẼ BIỂU ĐỒ & MACHINE LEARNING ---
 matplotlib>=3.8.0
