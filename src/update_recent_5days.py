@@ -7,9 +7,13 @@ import pandas as pd
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Đăng ký thư mục gốc dự án
+# Đăng ký thư mục gốc dự án (Lùi 1 cấp từ src/ để ra thư mục root)
 ROOT_DIR = Path(__file__).resolve().parent.parent
 ENV_PATH = ROOT_DIR / ".env"
+
+# Đường dẫn thư mục lưu parquet mặc định: data/price_parquet/ (cùng cấp với src/)
+DEFAULT_OUTPUT_DIR = ROOT_DIR / "data" / "price_parquet"
+DEFAULT_CSV_PATH = ROOT_DIR / "watchlist" / "kakata.csv"
 
 load_dotenv(dotenv_path=ENV_PATH)
 FIREANT_TOKEN = os.getenv("FIREANT_TOKEN", "").strip()
@@ -79,7 +83,7 @@ def fetch_historical_price(symbol: str, start_date: str, end_date: str) -> pd.Da
 
     return pd.DataFrame()
 
-def prepare_and_save_parquet(df: pd.DataFrame, output_filepath: str):
+def prepare_and_save_parquet(df: pd.DataFrame, output_filepath: Path):
     """Chuẩn hóa Data Types và ghi/cập nhật xuống file Parquet."""
     df_clean = df.copy()
     
@@ -97,14 +101,14 @@ def prepare_and_save_parquet(df: pd.DataFrame, output_filepath: str):
 
     df_clean.to_parquet(output_filepath, index=False, engine='pyarrow')
 
-def update_symbol_5days(symbol: str, target_dates: list, output_dir: str):
+def update_symbol_5days(symbol: str, target_dates: list, output_dir: Path):
     """Kiểm tra file Parquet của mã cổ phiếu và cập nhật các ngày còn thiếu trong 5 ngày gần nhất."""
-    parquet_path = os.path.join(output_dir, f"{symbol}.parquet")
+    parquet_path = output_dir / f"{symbol}.parquet"
     existing_df = pd.DataFrame()
     existing_dates = set()
 
     # 1. Kiểm tra xem file Parquet đã tồn tại chưa
-    if os.path.exists(parquet_path):
+    if parquet_path.exists():
         try:
             existing_df = pd.read_parquet(parquet_path)
             if 'date' in existing_df.columns:
@@ -146,12 +150,15 @@ def update_symbol_5days(symbol: str, target_dates: list, output_dir: str):
 
 def main():
     parser = argparse.ArgumentParser(description="Cập nhật dữ liệu Parquet 5 ngày gần nhất")
-    parser.add_argument("--csv", type=str, default="watchlist/kakata.csv", help="Đường dẫn file CSV watchlist")
-    parser.add_argument("--output_dir", type=str, default="data/price_parquet/", help="Thư mục lưu Parquet (nên dùng ổ C:)")
+    parser.add_argument("--csv", type=str, default=str(DEFAULT_CSV_PATH), help="Đường dẫn file CSV watchlist")
+    parser.add_argument("--output_dir", type=str, default=str(DEFAULT_OUTPUT_DIR), help="Thư mục lưu file Parquet")
     args = parser.parse_args()
 
-    if not os.path.exists(args.csv):
-        print(f"❌ Không tìm thấy file CSV: {args.csv}")
+    csv_path = Path(args.csv)
+    output_dir = Path(args.output_dir)
+
+    if not csv_path.exists():
+        print(f"❌ Không tìm thấy file CSV: {csv_path}")
         return
 
     # Tạo danh sách 5 ngày gần nhất tính từ ngày hôm nay (YYYY-MM-DD)
@@ -159,18 +166,20 @@ def main():
     target_dates = [(today - datetime.timedelta(days=i)).strftime("%Y-%m-%d") for i in range(5)]
     target_dates.sort()  # Sắp xếp theo thứ tự thời gian tăng dần
 
+    print(f"📂 Thư mục lưu dữ liệu Parquet: {output_dir.resolve()}")
     print(f"📅 5 ngày gần nhất cần kiểm tra: {target_dates}")
 
-    df_watchlist = pd.read_csv(args.csv)
+    df_watchlist = pd.read_csv(csv_path)
     # Tìm cột chứa ký hiệu mã cổ phiếu
     symbol_col = next((col for col in ['Symbol', 'symbol', 'ticker', 'Ticker'] if col in df_watchlist.columns), df_watchlist.columns[0])
     symbols = df_watchlist[symbol_col].dropna().astype(str).str.strip().str.upper().tolist()
 
-    os.makedirs(args.output_dir, exist_ok=True)
+    # Tự động tạo thư mục lưu trữ nếu chưa có
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     for idx, symbol in enumerate(symbols, 1):
         print(f"[{idx}/{len(symbols)}] Đang kiểm tra mã: {symbol}")
-        update_symbol_5days(symbol, target_dates, args.output_dir)
+        update_symbol_5days(symbol, target_dates, output_dir)
         time.sleep(0.5)
 
     print("\n✅ Hoàn tất quá trình kiểm tra và cập nhật dữ liệu Parquet!")

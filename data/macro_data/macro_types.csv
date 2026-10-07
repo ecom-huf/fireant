@@ -1,0 +1,10 @@
+﻿type,name,description
+GDP,GDP,"Nhóm các chỉ số GDP, bao gồm GDP và tăng trưởng GDP nói chung và các lĩnh vực kinh tế nói riêng."
+Prices,Giá cả,"Nhóm chỉ số giá cả, bao gồm CPI, biến động giá xuất nhập khẩu, ..."
+Business,Kinh doanh,"Nhóm các chỉ tiêu kinh doanh như số lượng xe ô tô đăng ký, số lượng lao động, chỉ số PMI công nghiệp, ..."
+Trade,Thương mại,"Nhóm các chỉ số thương mại như cán cân thương mại, dòng vốn, giá trị xuất nhập khẩu, ..."
+Labour,Lao động,"Nhóm các chỉ tiêu về lao động việc làm, bao gồm tỷ lệ thất nghiệp, mức lương tối thiểu, độ tuổi lao động, ..."
+Money,Tiền tệ,"Nhóm các chỉ tiêu về tiền tệ, như lượng cung tiền M0, M1, M2, dự trữ ngoại hối, ..."
+Consumer,Tiêu dùng,"Nhóm các chỉ số tiêu dùng, bao gồm niềm tin người tiêu dùng, doanh số bán lẻ, giá xăng dầu, ..."
+Taxes,Thuế,"Nhóm chỉ tiêu về các loại thuế như thuế thu nhập doanh nghiệp, thuế thu nhập cá nhân, chi phí bảo hiểm, ..."
+InterestRate,Lãi suất,"Nhóm chỉ số lãi suất, bao gồm các loại lãi suất liên ngân hàng, lãi suất tái cấp vốn, ..."
