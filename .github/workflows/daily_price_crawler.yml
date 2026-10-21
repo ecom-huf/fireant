@@ -5,7 +5,9 @@ on:
     # Chạy vào 09:00 UTC (16:00 giờ Việt Nam) từ Thứ 2 đến Thứ 6
     - cron: '0 9 * * 1-5'
   workflow_dispatch:
-
+permissions:
+  contents: write
+  
 jobs:
   crawl-daily-prices:
     runs-on: ubuntu-latest
