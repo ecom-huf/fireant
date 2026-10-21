@@ -19,12 +19,12 @@ git commit -m "noi dung"
 git push -u origin main
 
 # Chạy chỉ Bước 2 (Không cào lại dữ liệu)
-python run_pipeline.py --skip-crawl
+python src/run_pipeline.py --skip-crawl
 
 # Chạy bình thường (Cào bổ sung + Chuyển đổi)
-python run_pipeline.py
+python src/run_pipeline.py
 
 # Chạy lại từ đầu toàn bộ lịch sử (Full Rebuild)
-python run_pipeline.py --full-rebuild
+python src/run_pipeline.py --full-rebuild
 
  
