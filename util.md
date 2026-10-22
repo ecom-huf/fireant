@@ -16,6 +16,11 @@ git config --global user.name "ecom-huf"
 
 git add .
 git commit -m "noi dung"
+
+# ! [rejected]        main -> main (fetch first)
+# error: failed to push some refs to 'https://github.com/ecom-huf/fireant.git'
+git pull origin main
+
 git push -u origin main
 
 # Chạy chỉ Bước 2 (Không cào lại dữ liệu)
