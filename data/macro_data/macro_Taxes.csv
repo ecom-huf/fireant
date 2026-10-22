@@ -1,0 +1,104 @@
+﻿category,id,type,name,nameVN,description,lastValue,lastDate,previousValue,previousDate,firstDate,maxValue,maxDate,minValue,minDate,averageValue,unit,frequency,range,nextRelease,source,historicalValue
+Taxes,93,Taxes,Corporate Tax Rate,Thuế thu nhập doanh nghiệp,"<p>Thuế thu nhập doanh nghiệp l&agrave; một loại thuế &aacute;p dụng cho thu nhập m&agrave; c&aacute;c doanh nghiệp, c&ocirc;ng ty hoặc tổ chức kinh doanh thu được từ hoạt động kinh doanh của họ. Thuế thu nhập doanh nghiệp thường được t&iacute;nh dựa tr&ecirc;n lợi nhuận (thu nhập r&ograve;ng) của doanh nghiệp sau khi đ&atilde; trừ đi c&aacute;c chi ph&iacute; v&agrave; giảm trừ thuế theo quy định của quốc gia hoặc khu vực cụ thể.</p>
+
+<p>Dưới đ&acirc;y l&agrave; một số điểm quan trọng về thuế thu nhập doanh nghiệp:</p>
+
+<ol>
+	<li>
+	<p><strong>T&iacute;nh chất trực tiếp:</strong> Thuế thu nhập doanh nghiệp l&agrave; một loại thuế trực tiếp, c&oacute; nghĩa l&agrave; n&oacute; được thu trực tiếp từ doanh nghiệp hoặc c&ocirc;ng ty v&agrave; kh&ocirc;ng được truyền dẫn cho b&ecirc;n thứ ba.</p>
+	</li>
+	<li>
+	<p><strong>Thuế thu nhập doanh nghiệp thường &aacute;p dụng cho lợi nhuận sau khi trừ đi c&aacute;c khoản chi ph&iacute; v&agrave; giảm trừ thuế:</strong> C&aacute;c doanh nghiệp thường được ph&eacute;p trừ đi c&aacute;c chi ph&iacute; li&ecirc;n quan đến hoạt động kinh doanh (như mua sắm nguy&ecirc;n liệu, chi trả cho nh&acirc;n vi&ecirc;n, chi ph&iacute; quảng c&aacute;o, v&agrave; c&aacute;c khoản tr&iacute;ch lập cho t&agrave;i sản cố định) trước khi t&iacute;nh thuế thu nhập doanh nghiệp.</p>
+	</li>
+	<li>
+	<p><strong>Tỷ lệ thuế thay đổi:</strong> Tỷ lệ thuế thu nhập doanh nghiệp c&oacute; thể&nbsp;thay đổi t&ugrave;y theo lĩnh vực kinh doanh cũng như theo thời kỳ.&nbsp;</p>
+	</li>
+	<li>
+	<p><strong>Mục ti&ecirc;u của thuế thu nhập doanh nghiệp:</strong> Mục ti&ecirc;u ch&iacute;nh của thuế thu nhập doanh nghiệp l&agrave; t&agrave;i trợ cho ng&acirc;n s&aacute;ch c&ocirc;ng, cung cấp nguồn thuế để ch&iacute;nh phủ c&oacute; thể cung cấp c&aacute;c dịch vụ v&agrave; dự &aacute;n c&ocirc;ng cộng, v&agrave; đảm bảo t&iacute;nh c&ocirc;ng bằng trong việc thu thuế đối với c&aacute;c tổ chức kinh doanh.</p>
+	</li>
+	<li>
+	<p><strong>Khoản thanh to&aacute;n thuế:</strong> Thuế thu nhập doanh nghiệp thường được t&iacute;nh h&agrave;ng năm v&agrave; doanh nghiệp phải nộp số thuế phải trả v&agrave;o khoản thanh to&aacute;n thuế h&agrave;ng năm của họ.</p>
+	</li>
+</ol>
+
+<p>Hệ thống thuế thu nhập doanh nghiệp thường&nbsp;phức tạp v&agrave; đ&ograve;i hỏi c&aacute;c doanh nghiệp phải tu&acirc;n thủ nhiều quy định v&agrave; b&aacute;o c&aacute;o t&agrave;i ch&iacute;nh li&ecirc;n quan đến thuế.</p>
+",20.0,2025-12-31T00:00:00,20.0,2024-12-31T00:00:00,1999-12-31T00:00:00,35.0,1999-12-31T00:00:00,20.0,2016-12-30T00:00:00,24.90740740740741,%,Hàng năm,1999-2025,,Tổng cục thuế,"[{'Date': 1999, 'Value': 35.0}, {'Date': 2000, 'Value': 32.5}, {'Date': 2001, 'Value': 32.0}, {'Date': 2002, 'Value': 32.0}, {'Date': 2003, 'Value': 32.0}, {'Date': 2004, 'Value': 28.0}, {'Date': 2005, 'Value': 28.0}, {'Date': 2006, 'Value': 28.0}, {'Date': 2007, 'Value': 28.0}, {'Date': 2008, 'Value': 28.0}, {'Date': 2009, 'Value': 25.0}, {'Date': 2010, 'Value': 25.0}, {'Date': 2011, 'Value': 25.0}, {'Date': 2012, 'Value': 25.0}, {'Date': 2013, 'Value': 25.0}, {'Date': 2014, 'Value': 22.0}, {'Date': 2015, 'Value': 22.0}, {'Date': 2016, 'Value': 20.0}, {'Date': 2017, 'Value': 20.0}, {'Date': 2018, 'Value': 20.0}, {'Date': 2019, 'Value': 20.0}, {'Date': 2020, 'Value': 20.0}, {'Date': 2021, 'Value': 20.0}, {'Date': 2022, 'Value': 20.0}, {'Date': 2023, 'Value': 20.0}, {'Date': 2024, 'Value': 20.0}, {'Date': 2025, 'Value': 20.0}]"
+Taxes,94,Taxes,Personal Income Tax Rate,Thuế thu nhập cá nhân,"<p>Thuế thu nhập c&aacute; nh&acirc;n l&agrave; một loại thuế được &aacute;p dụng l&ecirc;n thu nhập c&aacute; nh&acirc;n của c&aacute;c c&aacute; nh&acirc;n hoặc hộ gia đ&igrave;nh. Thuế n&agrave;y được t&iacute;nh dựa tr&ecirc;n thu nhập m&agrave; mỗi người hoặc gia đ&igrave;nh thu được từ c&aacute;c nguồn như lương l&agrave;m việc, thu nhập từ đầu tư, kinh doanh, hoặc c&aacute;c nguồn thu kh&aacute;c.</p>
+
+<p>Dưới đ&acirc;y l&agrave; một số điểm quan trọng về thuế thu nhập c&aacute; nh&acirc;n:</p>
+
+<ol>
+	<li>
+	<p><strong>Thuế thu nhập c&aacute; nh&acirc;n &aacute;p dụng cho c&aacute; nh&acirc;n v&agrave; hộ gia đ&igrave;nh:</strong>&nbsp;Thuế n&agrave;y &aacute;p dụng cho người lao động, nh&agrave; kinh doanh, v&agrave; c&aacute;c c&aacute; nh&acirc;n kh&aacute;c c&oacute; thu nhập từ nhiều nguồn kh&aacute;c nhau.</p>
+	</li>
+	<li>
+	<p><strong>T&iacute;nh chất trực tiếp:</strong> Thuế thu nhập c&aacute; nh&acirc;n l&agrave; một loại thuế trực tiếp, c&oacute; nghĩa l&agrave; n&oacute; được thu trực tiếp từ người c&aacute; nh&acirc;n hoặc hộ gia đ&igrave;nh v&agrave; kh&ocirc;ng được truyền dẫn cho b&ecirc;n thứ ba.</p>
+	</li>
+	<li>
+	<p><strong>Thuế lũy tiến:</strong> Hệ thống thuế thu nhập c&aacute; nh&acirc;n sử dụng m&ocirc; h&igrave;nh thuế lũy tiến, nghĩa l&agrave; mức thuế tăng theo thu nhập. C&aacute;c người c&oacute; thu nhập cao thường phải đ&oacute;ng mức thuế cao hơn so với người c&oacute; thu nhập thấp hơn.</p>
+	</li>
+	<li>
+	<p><strong>Giảm trừ thuế:</strong>&nbsp;Hiện người đ&oacute;ng thuế chỉ bị thu thuế tr&ecirc;n khoản thu nhập từ 11 triệu đồng/th&aacute;ng. Ngo&agrave;i ra cnguowfi đ&oacute;ng thuế c&ograve;n được giảm trừ gia cảnh cho mỗi c&aacute; nh&acirc;n phụ thuộc ở mức 4,4 triệu đồng mỗi người phụ thuộc.</p>
+	</li>
+	<li>
+	<p><strong>Mục ti&ecirc;u của thuế thu nhập c&aacute; nh&acirc;n:</strong> Mục ti&ecirc;u ch&iacute;nh của thuế thu nhập c&aacute; nh&acirc;n l&agrave; t&agrave;i trợ cho ng&acirc;n s&aacute;ch c&ocirc;ng v&agrave; cung cấp nguồn thuế để ch&iacute;nh phủ cung cấp c&aacute;c dịch vụ c&ocirc;ng cộng như chăm s&oacute;c sức khỏe, gi&aacute;o dục, an ninh x&atilde; hội, v&agrave; cơ sở hạ tầng c&ocirc;ng cộng.</p>
+	</li>
+</ol>
+
+<p>Hệ thống thuế thu nhập c&aacute; nh&acirc;n c&oacute; thể v&agrave; c&aacute;c quy định về thuế c&oacute; thể thay đổi theo thời gian v&agrave; ch&iacute;nh s&aacute;ch của ch&iacute;nh phủ.</p>
+",35.0,2025-12-31T00:00:00,35.0,2024-12-31T00:00:00,2011-12-30T00:00:00,35.0,2011-12-30T00:00:00,35.0,2011-12-30T00:00:00,35.0,%,Hàng năm,2011-2025,,Tổng cục thuế,"[{'Date': 2011, 'Value': 35.0}, {'Date': 2012, 'Value': 35.0}, {'Date': 2013, 'Value': 35.0}, {'Date': 2014, 'Value': 35.0}, {'Date': 2015, 'Value': 35.0}, {'Date': 2016, 'Value': 35.0}, {'Date': 2017, 'Value': 35.0}, {'Date': 2018, 'Value': 35.0}, {'Date': 2019, 'Value': 35.0}, {'Date': 2020, 'Value': 35.0}, {'Date': 2021, 'Value': 35.0}, {'Date': 2022, 'Value': 35.0}, {'Date': 2023, 'Value': 35.0}, {'Date': 2024, 'Value': 35.0}, {'Date': 2025, 'Value': 35.0}]"
+Taxes,95,Taxes,Sales Tax Rate,Thuế giá trị giá tăng,"<p>Thuế ti&ecirc;u thụ (c&ograve;n gọi l&agrave; thuế gi&aacute; trị gia tăng - VAT) l&agrave; một loại thuế được &aacute;p dụng tr&ecirc;n c&aacute;c sản phẩm v&agrave; dịch vụ khi ch&uacute;ng được mua b&aacute;n trong qu&aacute; tr&igrave;nh sản xuất v&agrave; ph&acirc;n phối. Thuế ti&ecirc;u thụ l&agrave; một phần quan trọng của hệ thống thuế của&nbsp;quốc gia v&agrave; đ&oacute;ng g&oacute;p quan trọng v&agrave;o nguồn thuế của ch&iacute;nh phủ.</p>
+
+<p>Dưới đ&acirc;y l&agrave; một số đặc điểm quan trọng của thuế ti&ecirc;u thụ:</p>
+
+<ol>
+	<li>
+	<p><strong>Thuế ti&ecirc;u thụ &aacute;p dụng cho h&agrave;ng h&oacute;a v&agrave; dịch vụ:</strong> Thuế n&agrave;y thường được &aacute;p dụng tr&ecirc;n gi&aacute; trị cuối c&ugrave;ng của sản phẩm hoặc dịch vụ, nghĩa l&agrave; người ti&ecirc;u d&ugrave;ng cuối c&ugrave;ng sẽ phải trả thuế khi mua sản phẩm hoặc dịch vụ đ&oacute;.</p>
+	</li>
+	<li>
+	<p><strong>T&iacute;nh chất gi&aacute;n tiếp:</strong> Thuế ti&ecirc;u thụ l&agrave; một loại thuế gi&aacute;n tiếp, c&oacute; nghĩa l&agrave; n&oacute; kh&ocirc;ng được trực tiếp thu từ người d&acirc;n m&agrave; được t&iacute;nh dựa tr&ecirc;n gi&aacute; trị gia tăng trong qu&aacute; tr&igrave;nh sản xuất v&agrave; ph&acirc;n phối.</p>
+	</li>
+	<li>
+	<p><strong>Truyền dẫn chi ph&iacute;:</strong> Trong qu&aacute; tr&igrave;nh sản xuất v&agrave; ph&acirc;n phối, c&aacute;c doanh nghiệp thường truyền dẫn chi ph&iacute; thuế ti&ecirc;u thụ cho người ti&ecirc;u d&ugrave;ng cuối c&ugrave;ng th&ocirc;ng qua gi&aacute; sản phẩm hoặc dịch vụ.</p>
+	</li>
+	<li>
+	<p><strong>Giảm bớt tải l&ecirc;n thuế:</strong> Hệ thống thuế ti&ecirc;u thụ thường cho ph&eacute;p c&aacute;c doanh nghiệp giảm bớt số tiền thuế đ&atilde; trả khi mua nguy&ecirc;n liệu hoặc dịch vụ để sản xuất sản phẩm cuối c&ugrave;ng. Điều n&agrave;y gi&uacute;p tr&aacute;nh việc thuế được t&iacute;nh tr&ecirc;n gi&aacute; trị gia tăng nhiều lần.</p>
+	</li>
+	<li>
+	<p><strong>Quản l&yacute; v&agrave; thu thuế:</strong> Ch&iacute;nh phủ thường quản l&yacute; v&agrave; thu thuế ti&ecirc;u thụ, v&agrave; số tiền thu được từ thuế n&agrave;y thường được sử dụng để t&agrave;i trợ c&aacute;c dự &aacute;n v&agrave; dịch vụ c&ocirc;ng cộng như hệ thống y tế, gi&aacute;o dục v&agrave; cơ sở hạ tầng.</p>
+	</li>
+</ol>
+
+<p>Hệ thống thuế ti&ecirc;u thụ c&oacute; thể thay đổi theo thời gian,&nbsp;v&agrave; c&oacute; thể c&oacute; c&aacute;c mức thuế kh&aacute;c nhau cho c&aacute;c loại h&agrave;ng h&oacute;a v&agrave; dịch vụ kh&aacute;c nhau. Thuế ti&ecirc;u thụ gi&uacute;p ch&iacute;nh phủ thu thuế một c&aacute;ch trung b&igrave;nh v&agrave; th&uacute;c đẩy sự c&ocirc;ng bằng trong việc chia sẻ tải trọng thuế giữa c&aacute;c tầng lớp x&atilde; hội. Hiện thuế VAT của Việt Nam c&oacute; mức cao nhất l&agrave; 10%.</p>
+",10.0,2025-12-31T00:00:00,10.0,2024-12-31T00:00:00,2011-12-30T00:00:00,10.0,2011-12-30T00:00:00,10.0,2011-12-30T00:00:00,10.0,%,Hàng năm,2011-2025,,Tổng cục thuế,"[{'Date': 2011, 'Value': 10.0}, {'Date': 2012, 'Value': 10.0}, {'Date': 2013, 'Value': 10.0}, {'Date': 2014, 'Value': 10.0}, {'Date': 2015, 'Value': 10.0}, {'Date': 2016, 'Value': 10.0}, {'Date': 2017, 'Value': 10.0}, {'Date': 2018, 'Value': 10.0}, {'Date': 2019, 'Value': 10.0}, {'Date': 2020, 'Value': 10.0}, {'Date': 2021, 'Value': 10.0}, {'Date': 2022, 'Value': 10.0}, {'Date': 2023, 'Value': 10.0}, {'Date': 2024, 'Value': 10.0}, {'Date': 2025, 'Value': 10.0}]"
+Taxes,96,Taxes,Social Security Rate,Phí bảo hiểm xã hội,"Phí bảo hiểm xã hội là số tiền mà một người phải đóng cho hệ thống bảo hiểm xã hội của quốc gia hoặc tổ chức bảo hiểm xã hội để tham gia và hưởng các quyền lợi bảo hiểm xã hội. Hệ thống bảo hiểm xã hội thường cung cấp bảo vệ và hỗ trợ tài chính cho các cá nhân và gia đình trong trường hợp họ gặp khó khăn hoặc mất khả năng làm việc do bệnh tật, tai nạn hoặc lý do khác.
+
+Phí bảo hiểm xã hội được thu từ các nguồn tài chính khác nhau, bao gồm:
+
+Người lao động: Người lao động thường phải đóng một phần lương hoặc thu nhập hàng tháng cho hệ thống bảo hiểm xã hội.
+
+Nhà tài trợ: Một số quốc gia hoặc chính phủ có thể đóng một phần hoặc toàn bộ phí bảo hiểm xã hội cho những người có thu nhập thấp hoặc trong các trường hợp đặc biệt.
+
+Nhà tuyển dụng: Trong một số trường hợp, các công ty hoặc tổ chức cũng phải đóng phí bảo hiểm xã hội cho nhân viên của họ.
+
+Các khoản phí này sau đó được sử dụng để cung cấp các dịch vụ và quyền lợi bảo hiểm xã hội như bảo hiểm y tế, bảo hiểm thất nghiệp, bảo hiểm hưu trí và các khoản trợ cấp khác cho người dân trong xã hội. Mục tiêu của hệ thống bảo hiểm xã hội là bảo vệ và cung cấp hỗ trợ cho người dân trong các tình huống khó khăn hoặc khi họ không còn khả năng làm việc.",32.0,2025-12-31T00:00:00,32.0,2024-12-31T00:00:00,2011-12-30T00:00:00,32.0,2017-12-29T00:00:00,22.0,2011-12-30T00:00:00,29.433333333333334,%,Hàng năm,2011-2025,,Tổng cục thuế,"[{'Date': 2011, 'Value': 22.0}, {'Date': 2012, 'Value': 24.0}, {'Date': 2013, 'Value': 24.0}, {'Date': 2014, 'Value': 26.0}, {'Date': 2015, 'Value': 26.0}, {'Date': 2016, 'Value': 31.5}, {'Date': 2017, 'Value': 32.0}, {'Date': 2018, 'Value': 32.0}, {'Date': 2019, 'Value': 32.0}, {'Date': 2020, 'Value': 32.0}, {'Date': 2021, 'Value': 32.0}, {'Date': 2022, 'Value': 32.0}, {'Date': 2023, 'Value': 32.0}, {'Date': 2024, 'Value': 32.0}, {'Date': 2025, 'Value': 32.0}]"
+Taxes,97,Taxes,Social Security Rate For Companies,Phí bảo hiểm xã hội doanh nghiệp đóng,<p>Ph&iacute; bảo hiểm x&atilde; hội m&agrave; một doanh nghiệp phải đ&oacute;ng thường được t&iacute;nh dựa tr&ecirc;n thu nhập của nh&acirc;n vi&ecirc;n v&agrave; c&aacute;c yếu tố kh&aacute;c. Mức ph&iacute; bảo hiểm x&atilde; hội doanh nghiệp đ&oacute;ng c&oacute; thể thay đổi theo thời gian. Hiện mức ph&iacute;&nbsp;bảo hiểm x&atilde; hội Doanh nghiệp phải đ&oacute;ng l&agrave; 17.5%&nbsp;thu nhập của người lao động l&agrave;m việc tại c&ocirc;ng ty.&nbsp;</p>,21.5,2025-12-31T00:00:00,21.5,2024-12-31T00:00:00,2011-12-30T00:00:00,22.0,2016-12-30T00:00:00,16.0,2011-12-30T00:00:00,20.1,%,Hàng năm,2011-2025,,Tổng cục thuế,"[{'Date': 2011, 'Value': 16.0}, {'Date': 2012, 'Value': 17.0}, {'Date': 2013, 'Value': 17.0}, {'Date': 2014, 'Value': 18.0}, {'Date': 2015, 'Value': 18.0}, {'Date': 2016, 'Value': 22.0}, {'Date': 2017, 'Value': 21.5}, {'Date': 2018, 'Value': 21.5}, {'Date': 2019, 'Value': 21.5}, {'Date': 2020, 'Value': 21.5}, {'Date': 2021, 'Value': 21.5}, {'Date': 2022, 'Value': 21.5}, {'Date': 2023, 'Value': 21.5}, {'Date': 2024, 'Value': 21.5}, {'Date': 2025, 'Value': 21.5}]"
+Taxes,98,Taxes,Social Security Rate For Employees,Phí bảo hiểm xã hội người lao động đóng,"<p>Ph&iacute; bảo hiểm x&atilde; hội m&agrave; người lao động phải đ&oacute;ng thường được t&iacute;nh dựa tr&ecirc;n thu nhập của họ. Mức ph&iacute; n&agrave;y c&oacute; thể thay đổi t&ugrave;y theo thu nhập v&agrave; c&aacute;c quy định bảo hiểm x&atilde; hội ở từng thời điểm. Ph&iacute; bảo hiểm x&atilde; hội m&agrave; người lao động đ&oacute;ng c&oacute; thể bao gồm c&aacute;c th&agrave;nh phần sau:</p>
+
+<ol>
+	<li>
+	<p><strong>Ph&iacute; bảo hiểm hưu tr&iacute;:</strong> Đ&acirc;y l&agrave; phần ph&iacute; m&agrave; người lao động đ&oacute;ng để t&iacute;ch luỹ quyền lợi hưu tr&iacute; trong tương lai khi họ đạt độ tuổi nghỉ hưu. Số tiền ph&iacute; n&agrave;y thường được t&iacute;nh dựa tr&ecirc;n mức thu nhập hiện tại của người lao động.</p>
+	</li>
+	<li>
+	<p><strong>Ph&iacute; bảo hiểm y tế:</strong> Phần ph&iacute; n&agrave;y thường được sử dụng để cung cấp dịch vụ y tế v&agrave; chăm s&oacute;c sức khỏe cho người lao động v&agrave; gia đ&igrave;nh họ. Mức ph&iacute; bảo hiểm y tế c&oacute; thể thay đổi t&ugrave;y theo quy định của quốc gia v&agrave; loại h&igrave;nh bảo hiểm y tế.</p>
+	</li>
+	<li>
+	<p><strong>Ph&iacute; bảo hiểm thất nghiệp:</strong> Đ&acirc;y l&agrave; ph&iacute; m&agrave; người lao động đ&oacute;ng để được hưởng quyền lợi khi họ mất việc l&agrave;m hoặc bị thất nghiệp. Mức ph&iacute; n&agrave;y cũng c&oacute; thể biến đổi t&ugrave;y theo quy định của quốc gia.</p>
+	</li>
+	<li>
+	<p><strong>C&aacute;c khoản ph&iacute; kh&aacute;c:</strong> Ngo&agrave;i c&aacute;c ph&iacute; tr&ecirc;n, c&ograve;n c&oacute; thể c&oacute; c&aacute;c khoản ph&iacute; kh&aacute;c như bảo hiểm tai nạn lao động hoặc bảo hiểm x&atilde; hội ri&ecirc;ng cho người lao động c&oacute; nghề nghiệp đặc biệt.</p>
+	</li>
+</ol>
+
+<p>Tổng số tiền ph&iacute; bảo hiểm x&atilde; hội m&agrave; người lao động đ&oacute;ng thường được trừ trực tiếp từ thu nhập của họ hoặc được thanh to&aacute;n h&agrave;ng th&aacute;ng, hiện ở mức 4% tổng thu nhập của người lao động. Mục ti&ecirc;u của ph&iacute; bảo hiểm x&atilde; hội l&agrave; đảm bảo rằng người lao động v&agrave; gia đ&igrave;nh họ sẽ c&oacute; quyền lợi v&agrave; bảo vệ t&agrave;i ch&iacute;nh trong trường hợp họ gặp kh&oacute; khăn hoặc mất khả năng l&agrave;m việc do bệnh tật hoặc thất nghiệp.</p>
+",10.5,2025-12-31T00:00:00,10.5,2024-12-31T00:00:00,2011-12-30T00:00:00,10.5,2016-12-30T00:00:00,6.0,2011-12-30T00:00:00,9.4,%,Hàng năm,2011-2025,,Tổng cục thuế,"[{'Date': 2011, 'Value': 6.0}, {'Date': 2012, 'Value': 7.0}, {'Date': 2013, 'Value': 7.0}, {'Date': 2014, 'Value': 8.0}, {'Date': 2015, 'Value': 8.0}, {'Date': 2016, 'Value': 10.5}, {'Date': 2017, 'Value': 10.5}, {'Date': 2018, 'Value': 10.5}, {'Date': 2019, 'Value': 10.5}, {'Date': 2020, 'Value': 10.5}, {'Date': 2021, 'Value': 10.5}, {'Date': 2022, 'Value': 10.5}, {'Date': 2023, 'Value': 10.5}, {'Date': 2024, 'Value': 10.5}, {'Date': 2025, 'Value': 10.5}]"
